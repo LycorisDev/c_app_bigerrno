@@ -37,4 +37,30 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_toupper(int c);
 char	*gnl(int fd);
 
+typedef struct s_list
+{
+	void			*data;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
+
+size_t	list_size(t_list *list);
+t_list	*list_find_at(t_list *list, size_t index);
+t_list	*list_find_if(t_list *list, int (*f)(void *));
+t_list	*list_last(t_list *list);
+t_list	*list_new(void *data);
+void	list_add_front(t_list *list, t_list *new);
+void	list_add_back(t_list *list, t_list *new);
+int		list_add_sorted(t_list *list, t_list *new, int (*f)(void *, void *));
+int		list_is_sorted(t_list *list, int (*f)(void *, void *));
+void	list_swap_data(t_list *a, t_list *b);
+void	list_sort(t_list *list, int (*f)(void *, void *));
+void	list_del_one(t_list *node, void (*del)(void *));
+void	list_del_if(t_list *list, int (*f)(void *), void (*del)(void *));
+void	list_clear(t_list *list, void (*del)(void *));
+int		list_any(t_list *list, int (*f)(void *));
+size_t	list_count_if(t_list *list, int (*f)(void *));
+void	list_iter(t_list *list, void (*f)(void *));
+t_list	*list_map(t_list *list, void *(*f)(void *), void (*del)(void *));
+
 #endif

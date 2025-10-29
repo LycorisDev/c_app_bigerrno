@@ -1,7 +1,5 @@
 #include "bigerrno.h"
 
-static void	node_clear(t_env *node);
-
 int	builtin_unset(t_sh *sh, char **arg)
 {
 	int		n;
@@ -20,27 +18,8 @@ int	builtin_unset(t_sh *sh, char **arg)
 				sh->hidden = node->next;
 		}
 		if (node)
-			node_clear(node);
+			clear_node(node);
 		++n;
 	}
 	return (0);
-}
-
-static void	node_clear(t_env *node)
-{
-	t_env	*tmp_p;
-	t_env	*tmp_n;
-
-	if (!node)
-		return ;
-	tmp_p = node->prev;
-	tmp_n = node->next;
-	if (tmp_p)
-		tmp_p->next = tmp_n;
-	if (tmp_n)
-		tmp_n->prev = tmp_p;
-	free(node->key);
-	free(node->value);
-	free(node);
-	return ;
 }
