@@ -24,3 +24,15 @@ int	is_shell(const char *shells, const char *cmd)
 	free_entire_array((void **)sh_lst, free);
 	return (0);
 }
+
+int	is_our_shell(const char *cmd)
+{
+	char	*p_slash;
+
+	if (!cmd)
+		return (0);
+	else if (!ft_strcmp(cmd, SHELL))
+		return (1);
+	p_slash = ft_strrchr(cmd, '/');
+	return (p_slash && !ft_strcmp(p_slash + 1, SHELL));
+}

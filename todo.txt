@@ -16,7 +16,7 @@ Consider doing the TODOs that are scattered over the codebase.
 
 TOKEN TAGS
 
-- Add token tags.
+- Add token tags. You'd be able to remove the parentheses hack.
 - Fix the env var expansion:
 		export LALA="ls | sort -r"
 		echo $LALA
@@ -53,5 +53,23 @@ THE "SHLVL" ENV VAR
 initialize it to 0.
 - Then, increment it when opening bigerrno.
 - In the child process, decrement it unless the command is a shell.
+
+--------------------------------------------------------------------------------
+
+WILDCARD
+
+$ echo test*
+test.c test*
+$ rm test*
+rm: cannot remove 'test*': No such file or directory
+
+-> It should be `test test.c` and then work for both in the second command
+
+--------------------------------------------------------------------------------
+
+SIGNALS
+
+- Consider handling all signals in the shell itself (external commands are 
+already handled).
 
 --------------------------------------------------------------------------------

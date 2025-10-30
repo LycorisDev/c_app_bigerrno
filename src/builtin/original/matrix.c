@@ -63,13 +63,16 @@ int	builtin_matrix(t_sh *sh, char **arg)
 static void	run_script(t_sh *sh)
 {
 	char	*args[4];
+	char	**envp;
 
 	args[0] = "/bin/bash";
 	args[1] = "-c";
 	args[2] = MATRIX;
 	args[3] = 0;
-	execve(args[0], args, convert_to_arr(sh->env));
+	envp = convert_env_to_arr(sh);
+	execve(args[0], args, envp);
 	ft_putstr_fd(SHELL": execve matrix: fail", STDERR_FILENO);
+	free_entire_array((void **)envp, free);
 	exit(1);
 	return ;
 }

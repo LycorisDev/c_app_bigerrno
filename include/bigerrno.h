@@ -122,6 +122,7 @@ typedef struct s_sh
 
 /* Parser ------------------------------------------------------------------- */
 
+void	init_shell(t_sh *sh, char **argv);
 void	run_shell(t_sh *sh);
 void	free_shell(t_sh *sh);
 void	interpret_and_process_cmd(t_sh *sh);
@@ -226,7 +227,7 @@ int		resolve_command(t_pl *pl, char *cmd_path, char **cmd_fullpath);
 void	wait_for_subprocesses(t_sh *sh, int *pid, int options);
 
 int		is_shell(const char *shells, const char *cmd);
-void	update_shlvl(t_env **env, int inpipe);
+int		is_our_shell(const char *cmd);
 
 /* Builtins ----------------------------------------------------------------- */
 
@@ -259,7 +260,7 @@ int		output_error(int code, char *msg);
 
 int		only_var(char **arg);
 int		update_env_hidden(t_env **env_hidden, char **token);
-t_env	*convert_to_lst(char **env, const char *sh_first_arg);
+t_env	*convert_envp_to_lst(const char **envp, const char *sh_first_arg);
 t_env	*lstadd_back(t_env **lst, t_env *new);
 t_env	*lst_new(const char *key, const char *value);
 void	lst_clear(t_env **lst);
@@ -269,15 +270,13 @@ t_env	*find_key(t_env **lst, char *key);
 char	*get_var_value(t_sh *sh, char *key);
 int		valid_keyvalue(char *key_value);
 void	swap_node_content(t_env *s1, t_env *s2);
-t_env	*find_smallest_p(t_env **p_order);
-t_env	*find_biggest_p(t_env **p_order);
-t_env	*next_smallest(t_env **p_order, t_env *smallest);
 void	clear_node(t_env *node);
 t_env	*alpha_order_lst(t_env **env);
 void	update_env(t_env **env, t_env **env_hidden);
 void	extract_env_local_update(char ***cmd, t_env **env_local);
-char	**convert_to_arr(t_env *env);
+char	**convert_env_to_arr(t_sh *sh);
 char	*extract_key(int separator, char *key_value);
 int		firstocc(char *s, char c);
+void	update_shlvl(t_env **env, int inpipe);
 
 #endif

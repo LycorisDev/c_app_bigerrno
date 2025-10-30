@@ -3,24 +3,6 @@
 static void	process_token(t_env **env_hidden, char *token);
 static void	update_value(t_env *node, char *key, char *value, int is_append);
 
-int	only_var(char **arg)
-{
-	int		i;
-
-	i = 0;
-	if (!arg || !*arg)
-		return (0);
-	while (arg[i])
-	{
-		if (!ft_strchr(arg[i], '='))
-			return (0);
-		else if (!valid_keyvalue(arg[i]))
-			return (0);
-		++i;
-	}
-	return (1);
-}
-
 int	update_env_hidden(t_env **env_hidden, char **token)
 {
 	int	i;
@@ -34,22 +16,6 @@ int	update_env_hidden(t_env **env_hidden, char **token)
 		++i;
 	}
 	return (0);
-}
-
-int	firstocc(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	if (!s || !c)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		++i;
-	}
-	return (-1);
 }
 
 static void	process_token(t_env **env_hidden, char *token)

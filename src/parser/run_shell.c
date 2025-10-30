@@ -19,31 +19,6 @@ void	run_shell(t_sh *sh)
 	return ;
 }
 
-void	free_shell(t_sh *sh)
-{
-	if (!sh)
-		return ;
-	rl_clear_history();
-	lst_clear(&sh->env);
-	lst_clear(&sh->env_hidden);
-	lst_clear(&sh->env_local);
-	free(sh->pwd);
-	free(sh->pid);
-	free(sh->user);
-	free(sh->host);
-	free(sh->home);
-	free(sh->shells);
-	free(sh->rl.user);
-	free(sh->rl.prompt);
-	free_entire_array((void **)sh->rl.buf, free);
-	free_entire_array((void **)sh->rl.arr, free_rl_arr_element);
-	free_entire_array((void **)sh->rl.tokens, free);
-	free_entire_array((void **)sh->rl.hd, free);
-	if (!sh->keep_running)
-		builtin_disco_stop(sh);
-	return ;
-}
-
 void	free_rl_arr_element(void *ptr)
 {
 	size_t		i;

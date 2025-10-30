@@ -3,26 +3,6 @@
 static int	update_fd_src_with_files(t_pl *pl);
 static void	catch_file_opening_error(t_pl *pl, size_t i);
 
-/*
-	TODO
-	----------------------------------------------------------------------------
-
-	WILDCARD
-	$ echo test*
-	test.c test*
-	$ rm test*
-	rm: cannot remove 'test*': No such file or directory
-	-> It should be `test test.c` and then work for both in the second command
-
-	SIGNALS
-	- Consider handling all signals in the shell itself (external commands are 
-	already handled).
-
-	PARSING
-	- Add a label to tokens for a simpler parsing. You'd be able to remove the 
-	parentheses hack.
-*/
-
 int	redirect_io(t_pl *pl)
 {
 	pl->fd_std[0] = dup(STDIN_FILENO);

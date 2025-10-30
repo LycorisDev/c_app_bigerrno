@@ -3,7 +3,6 @@
 static int		subprocess_body(t_sh *sh, t_pl *pl);
 static int		execute_subshell(t_sh *sh, t_pl *pl);
 static void		run_cmd(t_sh *sh, t_pl *pl, char *cmd_fullpath);
-static t_env	*merge_lst(t_env *lst1, t_env *lst2);
 
 void	execute_subprocess(t_sh *sh, int fd_pipe[2], int fd_input, int *pid)
 {
@@ -88,56 +87,22 @@ static int	execute_subshell(t_sh *sh, t_pl *pl)
 */
 static void	run_cmd(t_sh *sh, t_pl *pl, char *cmd_fullpath)
 {
-	t_env	*exec_env;
-	char	**exec_arr;
-	char	*p_slash;
+	char	**envp;
 
 	if (is_shell(sh->shells, cmd_fullpath))
 	{
 		update_shlvl(&sh->env, 0);
-		p_slash = ft_strrchr(cmd_fullpath, '/');
-		if (!ft_strcmp(cmd_fullpath, SHELL)
-			|| (p_slash && !ft_strcmp(p_slash + 1, SHELL)))
+		if (is_our_shell(cmd_fullpath))
 			handle_default_background_color(1);
 		else
 			reset_title_and_background_color();
 	}
-	exec_env = merge_lst(sh->env_local, sh->env);
-	exec_arr = convert_to_arr(exec_env);
+	envp = convert_env_to_arr(sh);
 	set_signals(1);
-	execve(cmd_fullpath, pl->cmdl[pl->index], exec_arr);
+	execve(cmd_fullpath, pl->cmdl[pl->index], envp);
 	pl->exit_code = errno;
 	pl->err_msg = compose_err_msg(0, pl->cmdl[pl->index][0], 0,
 			strerror(pl->exit_code));
-	lst_clear(&exec_env);
-	free_entire_array((void **)exec_arr, free);
+	free_entire_array((void **)envp, free);
 	return ;
-}
-
-static t_env	*merge_lst(t_env *lst1, t_env *lst2)
-{
-	t_env	*merge;
-	t_env	*node;
-
-	merge = 0;
-	while (lst1)
-	{
-		node = lst_new(lst1->key, lst1->value);
-		if (!node)
-			lst_clear(&merge);
-		lstadd_back(&merge, node);
-		lst1 = lst1->next;
-	}
-	while (lst2)
-	{
-		if (!find_key(&merge, lst2->key))
-		{
-			node = lst_new(lst2->key, lst2->value);
-			if (!node)
-				lst_clear(&merge);
-			lstadd_back(&merge, node);
-		}
-		lst2 = lst2->next;
-	}
-	return (merge);
 }
