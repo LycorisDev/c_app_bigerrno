@@ -28,13 +28,13 @@ void	interpret_and_process_cmd(t_sh *sh)
 static void	process_cmd(t_sh *sh)
 {
 	if (sh->ex->pl.len == 1 && only_var(sh->ex->pl.cmdl[0]))
-		sh->exit_code = update_hidden(&sh->hidden, sh->ex->pl.cmdl[0]);
+		sh->exit_code = update_env_hidden(&sh->env_hidden, sh->ex->pl.cmdl[0]);
 	else if (sh->ex->pl.len == 1 && is_builtin(sh->ex->pl.cmdl[0]))
 	{
 		if (redirect_io(&sh->ex->pl))
 			sh->ex->pl.exit_code = execute_builtin(sh);
 		sh->exit_code = restore_io(&sh->ex->pl);
-		lst_clear(&sh->local);
+		lst_clear(&sh->env_local);
 	}
 	else
 		sh->exit_code = execute_pipeline(sh);

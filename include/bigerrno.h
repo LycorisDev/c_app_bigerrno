@@ -110,8 +110,8 @@ typedef struct s_sh
 	int			exit_code;
 	char		*pwd;
 	t_env		*env;
-	t_env		*hidden;
-	t_env		*local;
+	t_env		*env_hidden;
+	t_env		*env_local;
 	t_rl		rl;
 	t_ex		*ex;
 	t_color		color_scheme;
@@ -236,10 +236,11 @@ int		execute_builtin(t_sh *sh);
 int		builtin_cd(t_sh *sh, char **arg);
 int		builtin_echo(char **arg);
 int		builtin_exit(t_sh *sh, char **arg);
-int		builtin_export(t_env **env, t_env **hidden, t_env **local, char **arg);
+int		builtin_export(t_env **env, t_env **env_hidden, t_env **env_local,
+			char **arg);
 int		builtin_pwd(t_sh *sh);
 int		update_pwd(t_sh *sh, const char *arg, int code_err);
-int		builtin_set(t_env *hidden, char **arg);
+int		builtin_set(t_env *env_hidden, char **arg);
 int		builtin_unset(t_sh *sh, char **arg);
 
 int		builtin_disco(t_sh *sh);
@@ -257,7 +258,7 @@ int		output_error(int code, char *msg);
 /* Env ---------------------------------------------------------------------- */
 
 int		only_var(char **arg);
-int		update_hidden(t_env **hidden, char **token);
+int		update_env_hidden(t_env **env_hidden, char **token);
 t_env	*convert_to_lst(char **env, const char *sh_first_arg);
 t_env	*lstadd_back(t_env **lst, t_env *new);
 t_env	*lst_new(const char *key, const char *value);
@@ -273,8 +274,8 @@ t_env	*find_biggest_p(t_env **p_order);
 t_env	*next_smallest(t_env **p_order, t_env *smallest);
 void	clear_node(t_env *node);
 t_env	*alpha_order_lst(t_env **env);
-void	update_env(t_env **env, t_env **hidden);
-void	extract_local_update(char ***cmd, t_env **local);
+void	update_env(t_env **env, t_env **env_hidden);
+void	extract_env_local_update(char ***cmd, t_env **env_local);
 char	**convert_to_arr(t_env *env);
 char	*extract_key(int separator, char *key_value);
 int		firstocc(char *s, char c);

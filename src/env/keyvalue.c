@@ -1,7 +1,7 @@
 #include "bigerrno.h"
 
 static t_env	*lst_dup(t_env *src);
-static void		manage_env(t_env **hidden, t_env *env_var, t_env *current,
+static void		manage_env(t_env **env_hidden, t_env *env_var, t_env *current,
 					char **append_value);
 
 int	valid_keyvalue(char *key_value)
@@ -61,23 +61,23 @@ t_env	*alpha_order_lst(t_env **env)
 	return (start);
 }
 
-void	update_env(t_env **env, t_env **hidden)
+void	update_env(t_env **env, t_env **env_hidden)
 {
 	t_env	*current;
 	t_env	*next;
 	t_env	*env_var;
 	char	*append_value;
 
-	if (!hidden || !*hidden)
+	if (!env_hidden || !*env_hidden)
 		return ;
-	current = *hidden;
+	current = *env_hidden;
 	append_value = 0;
 	while (current)
 	{
 		next = current->next;
 		env_var = find_key(env, current->key);
 		if (env_var && ft_strcmp(current->key, "_") != 0)
-			manage_env(hidden, env_var, current, &append_value);
+			manage_env(env_hidden, env_var, current, &append_value);
 		current = next;
 	}
 	return ;
@@ -109,7 +109,7 @@ static t_env	*lst_dup(t_env *src)
 	return (dup);
 }
 
-static void	manage_env(t_env **hidden, t_env *env_var, t_env *current,
+static void	manage_env(t_env **env_hidden, t_env *env_var, t_env *current,
 				char **append_value)
 {
 	if (env_var->key[ft_strlen(env_var->key) - 1] == '+')
@@ -124,7 +124,7 @@ static void	manage_env(t_env **hidden, t_env *env_var, t_env *current,
 	else
 		env_var->value = ft_strdup(current->value);
 	env_var->withvalue = 1;
-	if (current == *hidden)
-		*hidden = current->next;
+	if (current == *env_hidden)
+		*env_hidden = current->next;
 	clear_node(current);
 }

@@ -9,7 +9,7 @@ int	builtin_cd(t_sh *sh, char **arg)
 	char	*target_dir;
 
 	code_err = 0;
-	update_env(&sh->env, &sh->hidden);
+	update_env(&sh->env, &sh->env_hidden);
 	if (get_array_length((void **)arg) > 2)
 		return (output_error(EPERM,
 				compose_err_msg(SHELL, "cd", 0, "too many arguments")));
@@ -36,7 +36,7 @@ static int	go_to_home(t_sh *sh, char **target_dir)
 {
 	t_env	*home_var;
 
-	home_var = find_key(&sh->local, "HOME");
+	home_var = find_key(&sh->env_local, "HOME");
 	if (!home_var)
 		home_var = find_key(&sh->env, "HOME");
 	if (!home_var || !home_var->value)
@@ -51,11 +51,11 @@ static int	go_to_oldpwd(t_sh *sh, char **target_dir)
 	t_env	*oldpwd;
 
 	*target_dir = 0;
-	oldpwd = find_key(&sh->local, "OLDPWD");
+	oldpwd = find_key(&sh->env_local, "OLDPWD");
 	if (!oldpwd)
 		oldpwd = find_key(&sh->env, "OLDPWD");
 	if (!oldpwd)
-		oldpwd = find_key(&sh->hidden, "OLDPWD");
+		oldpwd = find_key(&sh->env_hidden, "OLDPWD");
 	if (!oldpwd || !oldpwd->value)
 		return (output_error(EPERM,
 				compose_err_msg(SHELL, "cd", 0, "OLDPWD not set")));

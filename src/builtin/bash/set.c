@@ -1,14 +1,14 @@
 #include "bigerrno.h"
 
 /* No option required */
-int	builtin_set(t_env *hidden, char **arg)
+int	builtin_set(t_env *env_hidden, char **arg)
 {
 	t_env	*sorted;
 	t_env	*tmp;
 
-	if (!hidden || get_array_length((void **)arg) > 1)
+	if (!env_hidden || get_array_length((void **)arg) > 1)
 		return (0);
-	sorted = alpha_order_lst(&hidden);
+	sorted = alpha_order_lst(&env_hidden);
 	tmp = sorted;
 	while (tmp)
 	{

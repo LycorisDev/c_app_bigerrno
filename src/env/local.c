@@ -1,23 +1,23 @@
 #include "bigerrno.h"
 
-static void	update_local(char ***cmd, t_env **local, int *i);
+static void	update_env_local(char ***cmd, t_env **env_local, int *i);
 static char	**parse_key_value(char *to_separate);
-static int	add_local(t_env **local, char **key_value);
+static int	add_env_local(t_env **env_local, char **key_value);
 
-void	extract_local_update(char ***cmd, t_env **local)
+void	extract_env_local_update(char ***cmd, t_env **env_local)
 {
 	int	i;
 
 	i = 0;
 	if (!cmd || !(*cmd) || !(**cmd))
 		return ;
-	update_local(cmd, local, &i);
+	update_env_local(cmd, env_local, &i);
 	if (i > 0)
 		remove_array_elements((void **)(*cmd), 0, i - 1, free);
 	return ;
 }
 
-static int	add_local(t_env **local, char **key_value)
+static int	add_env_local(t_env **env_local, char **key_value)
 {
 	t_env	*new;
 
@@ -25,14 +25,14 @@ static int	add_local(t_env **local, char **key_value)
 	free_entire_array((void **)key_value, free);
 	if (!new)
 	{
-		lst_clear(local);
+		lst_clear(env_local);
 		return (-1);
 	}
-	lstadd_back(local, new);
+	lstadd_back(env_local, new);
 	return (0);
 }
 
-static void	update_local(char ***cmd, t_env **local, int *i)
+static void	update_env_local(char ***cmd, t_env **env_local, int *i)
 {
 	char	**key_value;
 	t_env	*node;
@@ -42,7 +42,7 @@ static void	update_local(char ***cmd, t_env **local, int *i)
 		if (!ft_strchr((*cmd)[*i], '=') || !valid_keyvalue((*cmd)[*i]))
 			break ;
 		key_value = parse_key_value((*cmd)[*i]);
-		node = find_key(local, key_value[0]);
+		node = find_key(env_local, key_value[0]);
 		if (node)
 		{
 			free(node->value);
@@ -51,7 +51,7 @@ static void	update_local(char ***cmd, t_env **local, int *i)
 		}
 		else if (key_value)
 		{
-			if (add_local(local, key_value) < 0)
+			if (add_env_local(env_local, key_value) < 0)
 				break ;
 		}
 		++*i;

@@ -13,9 +13,9 @@ int	builtin_unset(t_sh *sh, char **arg)
 			sh->env = node->next;
 		if (!node && !ft_strcmp(arg[n], "OLDPWD"))
 		{
-			node = find_key(&sh->hidden, arg[n]);
-			if (node && node == sh->hidden)
-				sh->hidden = node->next;
+			node = find_key(&sh->env_hidden, arg[n]);
+			if (node && node == sh->env_hidden)
+				sh->env_hidden = node->next;
 		}
 		if (node)
 			clear_node(node);

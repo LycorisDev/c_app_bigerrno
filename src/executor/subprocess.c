@@ -41,7 +41,7 @@ static int	subprocess_body(t_sh *sh, t_pl *pl)
 	}
 	if (!ft_strcmp(pl->cmdl[pl->index][0], SEP_STR))
 		return (execute_subshell(sh, pl));
-	extract_local_update(&pl->cmdl[pl->index], &sh->local);
+	extract_env_local_update(&pl->cmdl[pl->index], &sh->env_local);
 	if (!resolve_command(pl, pl->cmdl[pl->index][0], &cmd_fullpath))
 		return (restore_io(pl));
 	if (cmd_fullpath)
@@ -102,7 +102,7 @@ static void	run_cmd(t_sh *sh, t_pl *pl, char *cmd_fullpath)
 		else
 			reset_title_and_background_color();
 	}
-	exec_env = merge_lst(sh->local, sh->env);
+	exec_env = merge_lst(sh->env_local, sh->env);
 	exec_arr = convert_to_arr(exec_env);
 	set_signals(1);
 	execve(cmd_fullpath, pl->cmdl[pl->index], exec_arr);

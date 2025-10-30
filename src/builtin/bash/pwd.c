@@ -59,7 +59,7 @@ static void	update_oldpwd(t_sh *sh, t_env *pwd)
 
 	oldpwd = find_key(&sh->env, "OLDPWD");
 	if (!oldpwd)
-		oldpwd = find_key(&sh->hidden, "OLDPWD");
+		oldpwd = find_key(&sh->env_hidden, "OLDPWD");
 	if (oldpwd)
 	{
 		free(oldpwd->value);
@@ -70,7 +70,7 @@ static void	update_oldpwd(t_sh *sh, t_env *pwd)
 	{
 		oldpwd = lst_new("OLDPWD", pwd->value);
 		if (oldpwd)
-			lstadd_back(&sh->hidden, oldpwd);
+			lstadd_back(&sh->env_hidden, oldpwd);
 	}
 	return ;
 }

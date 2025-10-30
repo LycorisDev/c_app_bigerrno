@@ -25,8 +25,8 @@ void	free_shell(t_sh *sh)
 		return ;
 	rl_clear_history();
 	lst_clear(&sh->env);
-	lst_clear(&sh->hidden);
-	lst_clear(&sh->local);
+	lst_clear(&sh->env_hidden);
+	lst_clear(&sh->env_local);
 	free(sh->pwd);
 	free(sh->pid);
 	free(sh->user);

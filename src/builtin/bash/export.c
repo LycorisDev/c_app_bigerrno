@@ -3,14 +3,15 @@
 static void	print_export_lst(t_env **lst);
 static void	add_or_update_var(t_env **env, char *key_value);
 static void	update_var(t_env *var, char *key_value, int separator);
-static void	switch_key_to_localvar(char **onlykey, t_env **local);
+static void	switch_key_to_localvar(char **onlykey, t_env **env_local);
 
-int	builtin_export(t_env **env, t_env **hidden, t_env **local, char **arg)
+int	builtin_export(t_env **env, t_env **env_hidden, t_env **env_local,
+		char **arg)
 {
 	t_env	*sorted;
 	int		n;
 
-	update_env(env, hidden);
+	update_env(env, env_hidden);
 	if (get_array_length((void **)arg) == 1)
 	{
 		sorted = alpha_order_lst(env);
@@ -22,14 +23,14 @@ int	builtin_export(t_env **env, t_env **hidden, t_env **local, char **arg)
 		n = 0;
 		while (arg[++n])
 		{
-			switch_key_to_localvar(&arg[n], local);
+			switch_key_to_localvar(&arg[n], env_local);
 			if (valid_keyvalue(arg[n]))
 				add_or_update_var(env, arg[n]);
 			else
 				output_error(EPERM, compose_err_msg(SHELL, "export", arg[n],
 						"not a valid identifier"));
 		}
-		lst_clear(local);
+		lst_clear(env_local);
 	}
 	return (0);
 }
@@ -52,13 +53,13 @@ static void	print_export_lst(t_env **lst)
 	return ;
 }
 
-static void	switch_key_to_localvar(char **onlykey, t_env **local)
+static void	switch_key_to_localvar(char **onlykey, t_env **env_local)
 {
 	t_env	*tmp;
 	char	*compose;
 
-	tmp = *local;
-	if (!local || !*local || !onlykey || !*onlykey)
+	tmp = *env_local;
+	if (!env_local || !*env_local || !onlykey || !*onlykey)
 		return ;
 	while (tmp)
 	{
