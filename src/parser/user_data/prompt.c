@@ -41,6 +41,21 @@ void	update_prompt(t_sh *sh)
 	return ;
 }
 
+void	reset_title(void)
+{
+	int	stdin_dup;
+
+	if (isatty(STDIN_FILENO))
+	{
+		stdin_dup = dup(STDIN_FILENO);
+		close(STDIN_FILENO);
+		readline("\001\e]0;Terminal\a\002");
+		dup2(stdin_dup, STDIN_FILENO);
+		close(stdin_dup);
+	}
+	return ;
+}
+
 static char	*get_prompt_path(t_sh *sh)
 {
 	int		alloc;

@@ -18,6 +18,9 @@ int	main(int argc, char **argv)
 	run_shell(&sh);
 	free_shell(&sh);
 	if (sh.subshell == 0)
-		reset_title_and_background_color();
+	{
+		reset_title();
+		handle_default_background_color(1);
+	}
 	return (sh.exit_code);
 }

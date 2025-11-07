@@ -92,10 +92,9 @@ static void	run_cmd(t_sh *sh, t_pl *pl, char *cmd_fullpath)
 	if (is_shell(sh->shells, cmd_fullpath))
 	{
 		update_shlvl(&sh->env, 0);
-		if (is_our_shell(cmd_fullpath))
-			handle_default_background_color(1);
-		else
-			reset_title_and_background_color();
+		if (!is_our_shell(cmd_fullpath))
+			reset_title();
+		handle_default_background_color(1);
 	}
 	envp = convert_env_to_arr(sh);
 	set_signals(1);

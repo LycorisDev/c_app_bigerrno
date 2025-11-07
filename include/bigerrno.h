@@ -129,7 +129,6 @@ void	interpret_and_process_cmd(t_sh *sh);
 
 void	handle_no_tty(void);
 void	handle_default_background_color(int set);
-void	reset_title_and_background_color(void);
 void	set_prompt_color(t_sh *sh, t_color color);
 void	set_background_color(t_color color);
 int		is_term_var_valid(t_sh *sh);
@@ -142,6 +141,7 @@ int		is_unicode_format(const char *s);
 void	process_unicode_value(int is_echo_e, char **s, size_t *i);
 char	*get_prompt_user(t_sh *sh);
 void	update_prompt(t_sh *sh);
+void	reset_title(void);
 
 void	add_input_to_buffer(t_sh *sh, const char *prompt);
 int		extract_first_command_line(t_sh *sh);
