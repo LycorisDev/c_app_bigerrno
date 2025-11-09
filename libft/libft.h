@@ -27,6 +27,7 @@ ssize_t	ft_putstr(int fd, const char *s);
 char	**ft_split(const char *s, char c);
 int		ft_strcasecmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strchrnul(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(const char *s1, const char *s2);

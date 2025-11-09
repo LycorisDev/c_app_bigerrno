@@ -6,10 +6,8 @@ int	valid_keyvalue(char *key_value)
 
 	if (!key_value || ft_isdigit(key_value[0]))
 		return (0);
-	p_end = ft_strchr(key_value, '=');
-	if (!p_end)
-		p_end = ft_strchr(key_value, '\0');
-	else if (p_end > key_value && *(p_end - 1) == '+')
+	p_end = ft_strchrnul(key_value, '=');
+	if (*p_end == '=' && p_end > key_value && *(p_end - 1) == '+')
 		--p_end;
 	if (p_end == key_value)
 		return (0);

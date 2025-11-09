@@ -18,8 +18,8 @@ char	*circular_pipeline(t_sh *sh, const char *cmdl)
 	{
 		execute_pipeline(sh);
 		data = ft_gnl(sh->ex->pl.fd_circ[0]);
-		if (data && ft_strchr(data, '\n'))
-			*ft_strchr(data, '\n') = 0;
+		if (data)
+			*ft_strchrnul(data, '\n') = 0;
 		close(sh->ex->pl.fd_circ[0]);
 	}
 	destroy_all_ex(sh);

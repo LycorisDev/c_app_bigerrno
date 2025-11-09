@@ -59,9 +59,7 @@ static void	extract_first_line(t_sh *sh)
 
 	if (!sh->input)
 		return ;
-	p_nl = ft_strchr(sh->input, '\n');
-	if (!p_nl)
-		p_nl = ft_strchr(sh->input, '\0');
+	p_nl = ft_strchrnul(sh->input, '\n');
 	left = ft_substr(sh->input, 0, p_nl - sh->input);
 	right = 0;
 	if (p_nl[0])
