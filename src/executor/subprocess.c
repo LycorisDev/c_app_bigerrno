@@ -11,12 +11,12 @@ void	execute_subprocess(t_sh *sh, int fd_pipe[2], int fd_input, int *pid)
 	free(pid);
 	++sh->subshell;
 	update_shlvl(&sh->env, 1);
-	dup2(fd_input, STDIN_FILENO);
+	dup2(fd_input, 0);
 	close(fd_input);
 	if (sh->ex->pl.index < sh->ex->pl.len - 1)
 	{
 		close(fd_pipe[0]);
-		dup2(fd_pipe[1], STDOUT_FILENO);
+		dup2(fd_pipe[1], 1);
 		close(fd_pipe[1]);
 	}
 	child_exit_code = subprocess_body(sh, &sh->ex->pl);
@@ -65,11 +65,11 @@ static int	execute_subshell(t_sh *sh, t_pl *pl)
 	fd_std[1] = pl->fd_std[1];
 	destroy_all_ex(sh);
 	interpret_and_process_cmd(sh);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	dup2(fd_std[0], STDIN_FILENO);
+	close(0);
+	close(1);
+	dup2(fd_std[0], 0);
 	close(fd_std[0]);
-	dup2(fd_std[1], STDOUT_FILENO);
+	dup2(fd_std[1], 1);
 	close(fd_std[1]);
 	return (sh->exit_code);
 }

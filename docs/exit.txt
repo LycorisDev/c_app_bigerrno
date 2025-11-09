@@ -1,0 +1,23 @@
+List of tests for the `exit` builtin: 
+
+exit
+exit 42
+exit 42 a
+exit 4a
+exit aa
+exit ""
+exit "   42   "
+exit "  4  2"
+exit "  4a"
+exit "  a  "
+exit 9223372036854775807
+exit 9223372036854775808
+exit -9223372036854775808
+exit -9223372036854775809
+exit -1
+exit +100
+exit "+100"
+exit +"100"
+
+Exit code is EPERM if too many args
+Exit code is ENOENT for any other error

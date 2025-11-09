@@ -6,7 +6,7 @@ static void	update_oldpwd(t_sh *sh, t_env *pwd);
 int	builtin_pwd(t_sh *sh)
 {
 	if (sh->pwd)
-		printf("%s\n", sh->pwd);
+		ft_printf("%s\n", sh->pwd);
 	return (0);
 }
 

@@ -17,7 +17,7 @@ char	*circular_pipeline(t_sh *sh, const char *cmdl)
 	if (pipe(sh->ex->pl.fd_circ) >= 0)
 	{
 		execute_pipeline(sh);
-		data = gnl(sh->ex->pl.fd_circ[0]);
+		data = ft_gnl(sh->ex->pl.fd_circ[0]);
 		if (data && ft_strchr(data, '\n'))
 			*ft_strchr(data, '\n') = 0;
 		close(sh->ex->pl.fd_circ[0]);
@@ -40,10 +40,10 @@ int	is_term_var_valid(t_sh *sh)
 	tmp1 = ft_strjoin("/bin/infocmp ", term);
 	tmp2 = ft_strjoin(tmp1, " | /bin/head -c8");
 	free(tmp1);
-	dup_err = dup(STDERR_FILENO);
-	close(STDERR_FILENO);
+	dup_err = dup(2);
+	close(2);
 	tmp1 = circular_pipeline(sh, tmp2);
-	dup2(dup_err, STDERR_FILENO);
+	dup2(dup_err, 2);
 	close(dup_err);
 	free(tmp2);
 	result = tmp1 && tmp1[0];

@@ -1,6 +1,5 @@
 #include "bigerrno.h"
 
-/* No option required */
 int	builtin_set(t_env *env_hidden, char **arg)
 {
 	t_env	*sorted;
@@ -12,10 +11,10 @@ int	builtin_set(t_env *env_hidden, char **arg)
 	tmp = sorted;
 	while (tmp)
 	{
-		printf("%s=", tmp->key);
+		ft_printf("%s=", tmp->key);
 		if (tmp->value)
-			printf("%s", tmp->value);
-		printf("\n");
+			ft_printf("%s", tmp->value);
+		ft_printf("\n");
 		tmp = tmp->next;
 	}
 	lst_clear(&sorted);

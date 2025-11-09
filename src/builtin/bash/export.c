@@ -9,6 +9,7 @@ int	builtin_export(t_env **env, t_env **env_hidden, t_env **env_local,
 		char **arg)
 {
 	t_env	*sorted;
+	int		exit_code;
 	int		n;
 
 	update_env(env, env_hidden);
@@ -17,22 +18,21 @@ int	builtin_export(t_env **env, t_env **env_hidden, t_env **env_local,
 		sorted = alpha_order_lst(env);
 		print_export_lst(&sorted);
 		lst_clear(&sorted);
+		return (0);
 	}
-	else
+	exit_code = 0;
+	n = 0;
+	while (arg[++n])
 	{
-		n = 0;
-		while (arg[++n])
-		{
-			switch_key_to_localvar(&arg[n], env_local);
-			if (valid_keyvalue(arg[n]))
-				add_or_update_var(env, arg[n]);
-			else
-				output_error(EPERM, compose_err_msg(SHELL, "export", arg[n],
-						"not a valid identifier"));
-		}
-		lst_clear(env_local);
+		switch_key_to_localvar(&arg[n], env_local);
+		if (valid_keyvalue(arg[n]))
+			add_or_update_var(env, arg[n]);
+		else
+			exit_code = output_error(EPERM, compose_err_msg(SHELL, "export",
+						arg[n], "not a valid identifier"));
 	}
-	return (0);
+	lst_clear(env_local);
+	return (exit_code);
 }
 
 static void	print_export_lst(t_env **lst)
@@ -45,9 +45,9 @@ static void	print_export_lst(t_env **lst)
 	while (tmp)
 	{
 		if (tmp->withvalue)
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		else
-			printf("declare -x %s\n", tmp->key);
+			ft_printf("declare -x %s\n", tmp->key);
 		tmp = tmp->next;
 	}
 	return ;

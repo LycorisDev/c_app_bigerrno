@@ -100,6 +100,7 @@ typedef struct s_sh
 {
 	char		*first_arg;
 	int			valid_term;
+	int			is_tty;
 	char		*pid;
 	char		*user;
 	char		*host;
@@ -112,6 +113,7 @@ typedef struct s_sh
 	t_env		*env;
 	t_env		*env_hidden;
 	t_env		*env_local;
+	char		*input;
 	t_rl		rl;
 	t_ex		*ex;
 	t_color		color_scheme;
@@ -127,7 +129,6 @@ void	run_shell(t_sh *sh);
 void	free_shell(t_sh *sh);
 void	interpret_and_process_cmd(t_sh *sh);
 
-void	handle_no_tty(void);
 void	handle_default_background_color(int set);
 void	set_prompt_color(t_sh *sh, t_color color);
 void	set_background_color(t_color color);

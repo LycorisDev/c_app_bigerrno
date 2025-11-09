@@ -5,23 +5,23 @@ static void	catch_file_opening_error(t_pl *pl, size_t i);
 
 int	redirect_io(t_pl *pl)
 {
-	pl->fd_std[0] = dup(STDIN_FILENO);
-	pl->fd_std[1] = dup(STDOUT_FILENO);
-	pl->fd_src[0] = STDIN_FILENO;
-	pl->fd_src[1] = STDOUT_FILENO;
+	pl->fd_std[0] = dup(0);
+	pl->fd_std[1] = dup(1);
+	pl->fd_src[0] = 0;
+	pl->fd_src[1] = 1;
 	if (pl->index == pl->len - 1 && pl->circular)
 		pl->fd_src[1] = pl->fd_circ[1];
 	if (!update_fd_src_with_files(pl))
 		return (0);
-	if (pl->fd_src[0] != STDIN_FILENO)
+	if (pl->fd_src[0] != 0)
 	{
-		dup2(pl->fd_src[0], STDIN_FILENO);
+		dup2(pl->fd_src[0], 0);
 		close(pl->fd_src[0]);
 		pl->fd_src[0] = -1;
 	}
-	if (pl->fd_src[1] != STDOUT_FILENO)
+	if (pl->fd_src[1] != 1)
 	{
-		dup2(pl->fd_src[1], STDOUT_FILENO);
+		dup2(pl->fd_src[1], 1);
 		close(pl->fd_src[1]);
 		pl->fd_src[1] = -1;
 	}
@@ -30,13 +30,6 @@ int	redirect_io(t_pl *pl)
 
 int	restore_io(t_pl *pl)
 {
-	char	buffer[1024];
-
-	if (!isatty(STDIN_FILENO))
-	{
-		while (read(STDIN_FILENO, buffer, 1024 - 1) > 0)
-			;
-	}
 	if (pl->fd_src[0] >= 0)
 		close(pl->fd_src[0]);
 	if (pl->fd_src[1] >= 0)
@@ -46,11 +39,11 @@ int	restore_io(t_pl *pl)
 		close(pl->fd_circ[0]);
 		close(pl->fd_circ[1]);
 	}
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	dup2(pl->fd_std[0], STDIN_FILENO);
+	close(0);
+	close(1);
+	dup2(pl->fd_std[0], 0);
 	close(pl->fd_std[0]);
-	dup2(pl->fd_std[1], STDOUT_FILENO);
+	dup2(pl->fd_std[1], 1);
 	close(pl->fd_std[1]);
 	output_error(pl->exit_code, pl->err_msg);
 	return (pl->exit_code);

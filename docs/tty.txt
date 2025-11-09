@@ -1,0 +1,23 @@
+The TTY is the terminal. When the shell is called in a pipeline, its input 
+and/or output are not linked to a TTY. This is called non-interactive mode. In 
+this mode, GNL needs to be used instead of readline, and no "exit" is printed 
+out at the end.
+
+This mode can be expressed in two ways:
+
+`echo -e "echo hello world\necho \$?\nexit" | bash`
+
+`cat | bash`
++
+```
+> echo hello world
+hello world
+> echo $?
+0
+> exit
+> exit
+```
+
+Apparently printf, dprintf and the likes don't flush when in non-interactive 
+mode. While some implementations keep flushing printf on '\n' anyway, it's not 
+standard. So forbid functions from the printf family.

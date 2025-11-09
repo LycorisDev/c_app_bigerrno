@@ -1,0 +1,5 @@
+The `expansion` function expands:
+- Tilde: `~`, `~+` and `~-`.
+- Special parameters: `$0`, `$$` and `$?`.
+- Environment variables.
+- Asterisk wildcards.

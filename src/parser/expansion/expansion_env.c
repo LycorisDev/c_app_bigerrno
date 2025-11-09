@@ -1,6 +1,6 @@
 #include "bigerrno.h"
 
-static char	*handle_potential_var(t_sh *sh, char *s, size_t *i, char **quote);
+static void	handle_potential_var(t_sh *sh, char **s, size_t *i, char **quote);
 static char	*get_name(const char *s, size_t i);
 static char	*get_value(t_sh *sh, const char *var_name, char *quote);
 static char	*process_var_value_whitespaces(char *var_value);
@@ -21,7 +21,7 @@ char	**expand_environment_variables(t_sh *sh, const char *s)
 	{
 		if ((!quote || *quote != '\'') && dup[i] == '$' && dup[i + 1] != '\''
 			&& (!i || dup[i - 1] != '\\') && dup[i + 1] != '"')
-			dup = handle_potential_var(sh, dup, &i, &quote);
+			handle_potential_var(sh, &dup, &i, &quote);
 		else
 			++i;
 		if (is_char_start_of_quote(dup, i - 1, quote))
@@ -34,33 +34,33 @@ char	**expand_environment_variables(t_sh *sh, const char *s)
 	return (arr);
 }
 
-static char	*handle_potential_var(t_sh *sh, char *s, size_t *i, char **quote)
+static void	handle_potential_var(t_sh *sh, char **s, size_t *i, char **quote)
 {
 	char	*tmp1;
 	char	*tmp2;
 	size_t	len;
 
-	tmp1 = get_name(s, *i);
+	tmp1 = get_name(*s, *i);
 	if (!tmp1)
 	{
 		++*i;
-		return (s);
+		return ;
 	}
 	tmp2 = get_value(sh, tmp1, *quote);
 	len = ft_strlen(tmp1);
 	free(tmp1);
-	ft_memmove(s + *i, s + *i + len + 1, ft_strlen(s + *i + len + 1) + 1);
+	ft_memmove(*s + *i, *s + *i + len + 1, ft_strlen(*s + *i + len + 1) + 1);
 	if (tmp2)
 	{
-		tmp1 = insert_str_before_char(s, *i, tmp2);
+		tmp1 = insert_str_before_char(*s, *i, tmp2);
 		if (*quote)
-			*quote = tmp2 + (*quote - s);
+			*quote = tmp1 + (*quote - *s);
 		*i += ft_strlen(tmp2);
-		free(s);
-		s = tmp1;
+		free(*s);
+		*s = tmp1;
 	}
 	free(tmp2);
-	return (s);
+	return ;
 }
 
 static char	*get_name(const char *s, size_t i)

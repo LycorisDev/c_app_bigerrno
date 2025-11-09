@@ -13,8 +13,8 @@ void	handle_ctrl_d(t_sh *sh, int *is_legal)
 		return ;
 	}
 	check_cases(sh, is_legal);
-	if (sh->subshell == 0 && !sh->keep_running)
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	if (sh->is_tty && sh->subshell == 0 && !sh->keep_running)
+		ft_putstr(1, "exit\n");
 	return ;
 }
 

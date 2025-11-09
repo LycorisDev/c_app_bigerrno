@@ -28,7 +28,7 @@ int	builtin_cd(t_sh *sh, char **arg)
 				compose_err_msg(SHELL, "cd", target_dir, strerror(ENOENT))));
 	}
 	else if (arg[1] && target_dir && !ft_strcmp(arg[1], "-"))
-		printf("%s\n", target_dir);
+		ft_printf("%s\n", target_dir);
 	return (update_pwd(sh, arg[1], code_err));
 }
 

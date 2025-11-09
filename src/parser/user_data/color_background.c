@@ -16,38 +16,38 @@ void	handle_default_background_color(int set)
 
 	if (!color[0])
 	{
-		tcgetattr(STDIN_FILENO, &oldt);
+		tcgetattr(0, &oldt);
 		newt = oldt;
 		newt.c_lflag &= ~(ECHO | ICANON);
-		tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-		ft_putstr_fd("\033]11;?\007", STDOUT_FILENO);
+		tcsetattr(0, TCSANOW, &newt);
+		ft_putstr(1, "\033]11;?\007");
 		i = 0;
 		while (i < sizeof(color) - 1)
 		{
-			if (read(STDIN_FILENO, &color[i], 1) != 1 || color[i++] == '\007')
+			if (read(0, &color[i], 1) != 1 || color[i++] == '\007')
 				break ;
 		}
 		color[i] = 0;
-		tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+		tcsetattr(0, TCSANOW, &oldt);
 	}
 	if (color[0] && set)
-		ft_putstr_fd(color, STDOUT_FILENO);
+		ft_putstr(1, color);
 	return ;
 }
 
 void	set_background_color(t_color color)
 {
 	if (color == E_COLOR_GNOME)
-		ft_putstr_fd(BACKGROUND_COLOR_GNOME, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_GNOME);
 	else if (color == E_COLOR_PEACH)
-		ft_putstr_fd(BACKGROUND_COLOR_PEACH, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_PEACH);
 	else if (color == E_COLOR_POWDER)
-		ft_putstr_fd(BACKGROUND_COLOR_POWDER, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_POWDER);
 	else if (color == E_COLOR_AZUR)
-		ft_putstr_fd(BACKGROUND_COLOR_AZUR, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_AZUR);
 	else if (color == E_COLOR_PURPLE)
-		ft_putstr_fd(BACKGROUND_COLOR_PURPLE, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_PURPLE);
 	else if (color == E_COLOR_PINK)
-		ft_putstr_fd(BACKGROUND_COLOR_PINK, STDOUT_FILENO);
+		ft_putstr(1, BACKGROUND_COLOR_PINK);
 	return ;
 }

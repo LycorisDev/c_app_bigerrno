@@ -1,16 +1,5 @@
 #include "bigerrno.h"
 
-/*
-	Ctrl-\ (SIGQUIT) is ignored in the shell, but it makes an external process 
-	terminate and generates a core dump for it.
-
-	Ctrl-C (SIGINT) cancels the current input line when in the shell. It makes 
-	an external process terminate.
-
-	Ctrl-D is not a signal. It sends the EOT character, which expresses EOF to 
-	STDIN. It makes the readline function return NULL.
-*/
-
 int	set_signals(int reset)
 {
 	if (reset)
@@ -43,6 +32,6 @@ void	signal_handler(int signum)
 {
 	g_signum = signum;
 	if (signum == SIGINT)
-		close(STDIN_FILENO);
+		close(0);
 	return ;
 }

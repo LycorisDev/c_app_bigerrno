@@ -15,18 +15,18 @@ int	builtin_echo(char **arg)
 	while (arg[++to_be_echoed])
 	{
 		if (to_be_echoed != count)
-			ft_putstr_fd(" ", STDOUT_FILENO);
+			ft_putstr(1, " ");
 		if (with_backlash > 0)
 		{
 			parsed = get_echo_escaped_token(arg[to_be_echoed], &skip_nl);
-			ft_putstr_fd(parsed, STDOUT_FILENO);
+			ft_putstr(1, parsed);
 			free(parsed);
 		}
 		else
-			ft_putstr_fd(arg[to_be_echoed], STDOUT_FILENO);
+			ft_putstr(1, arg[to_be_echoed]);
 	}
 	if (!skip_nl)
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr(1, "\n");
 	return (0);
 }
 

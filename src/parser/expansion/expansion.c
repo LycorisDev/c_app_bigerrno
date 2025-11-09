@@ -2,13 +2,6 @@
 
 static char	**get_expanded_token(t_sh *sh, const char *s);
 
-/*
-	- Expand tilde: `~`, `~+` and `~-`.
-	- Expand special parameters: `$0`, `$$` and `$?`.
-	- Expand environment variables.
-	- Expand asterisk wildcards.
-*/
-
 void	expansion(t_sh *sh)
 {
 	size_t	i;

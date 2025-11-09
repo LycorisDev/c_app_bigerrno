@@ -1,32 +1,6 @@
 #include "bigerrno.h"
 
 /*
-	- `bash` + `kill -l` to list the signals.
-	- Call function `strsignal(signum)` in C to see the default flavor text.
-	- Run Bash and then a test program which sends a signal to itself. You'll 
-	see which flavor text Bash decides to output, as it can be different from
-	default.
-
-	```
-	#include <errno.h>
-	#include <stdlib.h>
-	#include <unistd.h>
-	#include <signal.h>
-
-	int	main(int argc, char **argv)
-	{
-		int	signum;
-
-		signum = 0;
-		if (argc > 1)
-			signum = atoi(argv[1]);
-		kill(getpid(), signum);
-		return (errno);
-	}
-	```
-*/
-
-/*
 	TODO
 	- From signum 19 to 22, it's a background job:
 		Signal 19: `[1]+  Stopped                 ./test 19`

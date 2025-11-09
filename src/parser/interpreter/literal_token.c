@@ -1,9 +1,5 @@
 #include "bigerrno.h"
 
-/*
-	This function is meant for the export builtin. Store variable values in 
-	this format after the parser is done "cleaning" them.
-*/
 char	*get_literal_token(const char *s)
 {
 	size_t	i;

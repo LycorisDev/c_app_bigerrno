@@ -1,0 +1,8 @@
+The `get_echo_escaped_token` function is meant for echo's -e option.
+
+Beware of "\c", which is not an actual ASCII character. It's replaced with '\0' 
+and also acts as the -n option.
+
+Also note that Unicode hex format is supported, despite the feature not being 
+specified in the man page of echo. This is because Bash' echo builtin 
+implements it, and we're mimicking this shell.

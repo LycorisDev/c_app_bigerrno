@@ -74,21 +74,8 @@ already handled).
 
 --------------------------------------------------------------------------------
 
-CLEAN SHELL
+DOCUMENTATION
 
-Pass all the tests of this tester:
-https://github.com/LucasKuhn/minishell_tester
-
-The issue might not be the tests themselves, but the tester definitely freaks 
-out. I've isolated the following problems:
-- The tester is okay with the prompt, but not with a background color change. 
-The only fix is to temporarily remove background color code. Add an option in 
-the makefile to compile with or without this code, and make the default case be 
-without the code.
-- Obviously the `handle_no_tty` function needs to go. It's a temporary block to 
-prevent the shell from being used in a pipeline. We need to emulate the same 
-behavior as Bash (or not?).
-- After the background color and the handle_no_tty function being commented 
-out, the tester trips up on exit codes. I don't yet understand the issue here.
+- Later on, make proper doc files, because this is a mess.
 
 --------------------------------------------------------------------------------

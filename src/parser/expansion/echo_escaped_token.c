@@ -5,16 +5,6 @@ static void	replace_with_special_character(char *s);
 static void	process_octal_value(char *s);
 static void	process_hexadecimal_value(char *s);
 
-/*
-	This function is meant for echo's -e option.
-
-	Beware of "\c", which is not an actual ASCII character. It's replaced with 
-	'\0' and also acts as the -n option.
-
-	Also note that Unicode hex format is supported, despite the feature not 
-	being specified in the man page of echo. This is because Bash' echo builtin 
-	implements it, and we're mimicking this shell.
-*/
 char	*get_echo_escaped_token(const char *s, int *is_c_found)
 {
 	size_t	i;

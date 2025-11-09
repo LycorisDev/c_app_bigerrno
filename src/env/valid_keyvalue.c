@@ -2,28 +2,24 @@
 
 int	valid_keyvalue(char *key_value)
 {
-	int	i;
-	int	separator;
+	char	*p_end;
 
-	i = 0;
-	separator = firstocc(key_value, '=');
-	if (key_value[0] == '_' && (!key_value[1] || separator == 1))
+	if (!key_value || ft_isdigit(key_value[0]))
 		return (0);
-	else if (ft_isdigit(key_value[0]))
+	p_end = ft_strchr(key_value, '=');
+	if (!p_end)
+		p_end = ft_strchr(key_value, '\0');
+	else if (p_end > key_value && *(p_end - 1) == '+')
+		--p_end;
+	if (p_end == key_value)
 		return (0);
-	else if (ft_isalpha(key_value[i]) || key_value[i] == '_')
+	else if (p_end == key_value + 1 && key_value[0] == '_')
+		return (0);
+	while (key_value < p_end)
 	{
-		while (key_value[i] && (separator < 0 || i < separator - !!i))
-		{
-			if (!(ft_isalnum(key_value[i]) || key_value[i] == '_'))
-				return (0);
-			++i;
-		}
-		if (ft_isalnum(key_value[i])
-			|| key_value[i] == '_' || key_value[i] == '+')
-			return (!(separator < 0 && key_value[i] == '+'));
+		if (*key_value != '_' && !ft_isalnum(*key_value))
+			return (0);
+		++key_value;
 	}
-	else
-		return (0);
 	return (1);
 }

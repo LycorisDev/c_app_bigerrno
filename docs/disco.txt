@@ -1,0 +1,5 @@
+Only the parent process can start disco, but any process can stop it. The 
+reason a child process cannot start it, is that it might be tricky for a child 
+process to communicate the disco PID to the parent.
+
+That might be something we can figure out with the background jobs feature.

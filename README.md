@@ -13,27 +13,27 @@ idea of a big mistake with "big" and "errno", aka "error number".
 ## List of extra features
 
 **Environment**
-- Variable lists: environment, hidden environment and local vars.
-- Environment: set a few vital variables when the environment is empty on shell 
+- Variable lists: Environment, hidden environment and local vars.
+- Environment: Set a few vital variables when the environment is empty on shell 
 startup.
 - Expand `$$` (PID), `$0` (argv[0]) and environment variables in shell and also 
 in heredoc if not delimiter.
 - Expand tilde `~`, `~+` and `~-`.
-- Increment SHLVL when opening a shell (yes we have the list of shells), and 
-decrement within a command (e.g. `env | grep SHLVL`).
+- Increment SHLVL when opening a shell, and decrement within a command (e.g. 
+`env | grep SHLVL`).
 
 **Builtins**
-- `echo`: on top of `-n`, `-e` and no option.
-- `cd`: on top of a relative or absolute path, `-` and no option.
-- `export`: also append option `a += b`.
+- `echo`: On top of `-n`, `-e` and no option.
+- `cd`: On top of a relative or absolute path, `-` and no option.
+- `export`: Also append option `a += b`.
 - Handle Schrödinger paths: `mkdir dir1 && cd dir1 && mkdir dir2 && cd dir2 && 
 rm -rf ../../dir1`.
 
-**Original Builtins (Lucie)**
-- `disco`: annoying endless call of `lulu` in an epileptic non-friendly fashion.
-- `lulu`: change of terminal background and prompt colors.
-- `matrix`: green random letters with black background raining down the screen.
-- `shoot`: shoot a bullet before displaying the prompt.
+**Extra Builtins (Lucie)**
+- `disco`: Annoying endless call of `lulu` in an epileptic non-friendly fashion.
+- `lulu`: Change of terminal background and prompt colors.
+- `matrix`: Green random letters with black background raining down the screen.
+- `shoot`: Shoot a bullet before displaying the prompt.
 
 **History**
 - Add heredoc to history.
@@ -55,7 +55,7 @@ sequences (e.g.: 🐚 $'\U1F41A').
 signal.
 
 **Aesthetic**
-- Prompt: identical to bash `user@host:path$ ` even with an empty environment.
+- Prompt: Identical to bash `user@host:path$ ` even with an empty environment.
 - colors: Ubuntu GNOME themed text and background.
-- Window title: 🐚 set to the prompt 🐚.
-- Opening a shell: reset the background color and window title.
+- Window title: 🐚 Set to the prompt 🐚.
+- Opening a shell: Reset the background color and window title.

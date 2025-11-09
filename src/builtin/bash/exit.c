@@ -3,33 +3,11 @@
 static int	parse_exit_arg(char **arg);
 static int	extract_exit_nbr(const char *arg, int *start, int *len, int *sign);
 
-/*
-	List of exit tests: 
-	exit
-	exit 42
-	exit 42 a
-	exit 4a
-	exit aa
-	exit ""
-	exit "   42   "
-	exit "  4  2"
-	exit "  4a"
-	exit "  a  "
-	exit 9223372036854775807
-	exit 9223372036854775808
-	exit -9223372036854775808
-	exit -9223372036854775809
-	exit -1
-
-	Exit code is EPERM if too many args
-	Exit code is ENOENT for any other error
-*/
-
 int	builtin_exit(t_sh *sh, char **arg)
 {
 	sh->keep_running = 0;
-	if (sh->subshell == 0)
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	if (sh->is_tty && sh->subshell == 0)
+		ft_putstr(1, "exit\n");
 	if (!arg[1])
 		return (sh->exit_code);
 	if (get_array_length((void **)arg) > 2)
@@ -65,7 +43,9 @@ static int	extract_exit_nbr(const char *arg, int *start, int *len, int *sign)
 
 	while (ft_isspace(arg[*start]))
 		++*start;
-	if (arg[*start] == '-')
+	if (arg[*start] == '+')
+		++*start;
+	else if (arg[*start] == '-')
 		*sign = ++*start % 1 - 1;
 	while (ft_isdigit(arg[*start + *len]))
 		++*len;

@@ -6,6 +6,7 @@ void	init_shell(t_sh *sh, char **argv)
 		return ;
 	sh->first_arg = argv[0];
 	sh->valid_term = is_term_var_valid(sh);
+	sh->is_tty = isatty(0) && isatty(1);
 	sh->pid = ft_itoa(get_pid(sh, sh->first_arg));
 	sh->user = circular_pipeline(sh, "/bin/whoami");
 	sh->host = circular_pipeline(sh, "/bin/uname -n | /bin/cut -d. -f1");
@@ -33,6 +34,7 @@ void	free_shell(t_sh *sh)
 	free(sh->host);
 	free(sh->home);
 	free(sh->shells);
+	free(sh->input);
 	free(sh->rl.user);
 	free(sh->rl.prompt);
 	free_entire_array((void **)sh->rl.buf, free);

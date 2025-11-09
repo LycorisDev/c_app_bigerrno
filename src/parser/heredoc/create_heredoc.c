@@ -105,7 +105,7 @@ static int	write_line_to_file(t_sh *sh, int fd, const char *s)
 	if (!tmp1)
 		tmp1 = ft_strdup(s);
 	tmp1 = get_expanded_heredoc_line(sh, tmp1);
-	if (write(fd, tmp1, ft_strlen(tmp1)) < 0)
+	if (ft_putstr(fd, tmp1) < 0)
 		success = 0;
 	free(tmp1);
 	return (success);

@@ -3,23 +3,36 @@ CFLAGS = -Wall -Wextra -Werror -fPIC
 NAME = libft.a
 
 HDR_LIBFT = libft.h
-SRC_LIBFT = ft_atoi.c         ft_atoi_base.c   ft_bzero.c \
-			ft_calloc.c       ft_clamp.c       ft_isalnum.c \
-			ft_isalpha.c      ft_isdigit.c     ft_islower.c \
-			ft_isspace.c      ft_isupper.c     ft_itoa.c \
-			ft_memcpy.c       ft_memmove.c     ft_pow.c \
-			ft_putstr_fd.c    ft_split.c       ft_strcasecmp.c \
-			ft_strchr.c       ft_strcmp.c      ft_strdup.c \
-			ft_strjoin.c      ft_strlcat.c     ft_strlcpy.c \
-			ft_strlen.c       ft_strncasecmp.c ft_strncmp.c \
-			ft_strrchr.c      ft_substr.c      ft_toupper.c \
-			gnl.c             list_add_back.c  list_add_front.c \
-			list_add_sorted.c list_any.c       list_clear.c \
-			list_count_if.c   list_del_if.c    list_del_one.c \
-			list_find_at.c    list_find_if.c   list_is_sorted.c \
-			list_iter.c       list_last.c      list_map.c \
-			list_new.c        list_size.c      list_sort.c \
-			list_swap_data.c
+SRC_LIBFT = standard/ft_atoi.c             standard/ft_bzero.c \
+			standard/ft_calloc.c           standard/ft_isalnum.c \
+			standard/ft_isalpha.c          standard/ft_isdigit.c \
+			standard/ft_islower.c          standard/ft_isspace.c \
+			standard/ft_isupper.c          standard/ft_memcpy.c \
+			standard/ft_memmove.c          standard/ft_memset.c \
+			standard/ft_strcasecmp.c       standard/ft_strchr.c \
+			standard/ft_strcmp.c           standard/ft_strdup.c \
+			standard/ft_strlcat.c          standard/ft_strlcpy.c \
+			standard/ft_strlen.c           standard/ft_strncasecmp.c \
+			standard/ft_strncmp.c          standard/ft_strrchr.c \
+			standard/ft_toupper.c          standard/printf/ft_printf.c \
+			standard/printf/parse.c        standard/printf/print_alpha.c \
+			standard/printf/print_dec.c    standard/printf/print_hex.c \
+			standard/printf/utils.c        extra/ft_atoi_base.c \
+			extra/ft_clamp.c               extra/ft_gnl.c \
+			extra/ft_itoa.c                extra/ft_pow.c \
+			extra/ft_putstr.c              extra/ft_split.c \
+			extra/ft_strjoin.c             extra/ft_substr.c \
+			extra/ft_uitoa.c               extra/ft_uitoa_base.c \
+			extra/ft_ultoa_base.c          extra/list/ft_list_add_back.c \
+			extra/list/ft_list_add_front.c extra/list/ft_list_add_sorted.c \
+			extra/list/ft_list_any.c       extra/list/ft_list_clear.c \
+			extra/list/ft_list_count_if.c  extra/list/ft_list_del_if.c \
+			extra/list/ft_list_del_one.c   extra/list/ft_list_find_at.c \
+			extra/list/ft_list_find_if.c   extra/list/ft_list_is_sorted.c \
+			extra/list/ft_list_iter.c      extra/list/ft_list_last.c \
+			extra/list/ft_list_map.c       extra/list/ft_list_new.c \
+			extra/list/ft_list_size.c      extra/list/ft_list_sort.c \
+			extra/list/ft_list_swap_data.c
 
 OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
 

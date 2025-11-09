@@ -7,13 +7,6 @@ static int	is_backslash_to_remove(const char *s, char *quote,
 				int *is_ansi_c_quote);
 static void	remove_backslash(char *backslash, size_t *i, int next_is_newline);
 
-/*
-	Used in the parser and also meant for the env builtin:
-	- Process ANSI-C quoting (`$'string'`) and localized string (`$"string"`).
-	- Remove the backslash in escaped characters.
-	- Remove the newline character if escaped and it's not in single quotes.
-	- Remove external quotes.
-*/
 char	*get_clean_token(const char *s)
 {
 	size_t	i;

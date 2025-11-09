@@ -7,7 +7,7 @@ int	output_error(int code, char *msg)
 {
 	if (code)
 	{
-		ft_putstr_fd(msg, STDERR_FILENO);
+		ft_putstr(2, msg);
 		free(msg);
 	}
 	return (code);

@@ -1,0 +1,5 @@
+`get_clean_token` is used in the parser and also meant for the env builtin:
+- Process ANSI-C quoting (`$'string'`) and localized string (`$"string"`).
+- Remove the backslash in escaped characters.
+- Remove the newline character if escaped and it's not in single quotes.
+- Remove external quotes.

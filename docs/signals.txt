@@ -1,0 +1,33 @@
+- `bash` + `kill -l` to list the signals.
+- Call function `strsignal(signum)` in C to see the default flavor text.
+- Run Bash and then a test program which sends a signal to itself. You'll see 
+which flavor text Bash decides to output, as it can be different from default.
+
+```
+#include <errno.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
+int	main(int argc, char **argv)
+{
+	int	signum;
+
+	signum = 0;
+	if (argc > 1)
+		signum = atoi(argv[1]);
+	kill(getpid(), signum);
+	return (errno);
+}
+```
+
+--------------------------------------------------------------------------------
+
+Ctrl-\ (SIGQUIT) is ignored in the shell, but it makes an external process 
+terminate and generates a core dump for it.
+
+Ctrl-C (SIGINT) cancels the current input line when in the shell. It makes an 
+external process terminate.
+
+Ctrl-D is not a signal. It sends the EOT character, which expresses EOF to 
+STDIN. It makes the readline function return NULL.

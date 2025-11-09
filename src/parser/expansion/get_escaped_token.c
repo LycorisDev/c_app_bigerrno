@@ -5,21 +5,6 @@ static void	replace_with_special_character(char *s);
 static void	process_octal_value(char *s);
 static void	process_hexadecimal_value(char *s);
 
-/*
-	This function is meant for the ANSI C quoting ($'string' notation), which 
-	makes the parser escape special characters.
-
-	Beware of "\c", which is not an actual ASCII character, and is to be 
-	replaced with a control character. For example, "\cC" is to be replaced 
-	with the ASCII character ETX (end of text) of dec value 3, or in other 
-	words "Ctrl-C" in the terminal. Note that inserting this character in a 
-	string doesn't send any signal, it's only interpreted when the Ctrl key is 
-	pressed. Control characters can also be written in oct or hex format. All 
-	of that to say that not only is "\c" superfluous, it also seems to have 
-	undefined behavior when followed by a non-alpha character. For simplicity's 
-	sake, it's replaced with '\0'.
-*/
-
 char	*get_escaped_token(const char *s)
 {
 	size_t	i;

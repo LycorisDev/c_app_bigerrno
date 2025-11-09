@@ -29,7 +29,7 @@ static void	fork_subprocesses(t_sh *sh, int *pid)
 	int	fd_input;
 	int	fd_pipe[2];
 
-	fd_input = dup(STDIN_FILENO);
+	fd_input = dup(0);
 	while (sh->ex->pl.index < sh->ex->pl.len)
 	{
 		if (sh->ex->pl.index < sh->ex->pl.len - 1 && pipe(fd_pipe) < 0)
