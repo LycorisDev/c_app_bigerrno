@@ -1,14 +1,5 @@
 #include "bigerrno.h"
 
-/*
-	TODO
-	- From signum 19 to 22, it's a background job:
-		Signal 19: `[1]+  Stopped                 ./test 19`
-		Signal 20: `[1]+  Stopped                 ./test 20`
-		Signal 21: `[1]+  Stopped                 ./test 21`
-		Signal 22: `[1]+  Stopped                 ./test 22`
-*/
-
 static void	populate_sig_flavor_text_0(char *sig_flavor_text[65]);
 static void	populate_sig_flavor_text_1(char *sig_flavor_text[65]);
 static void	populate_sig_flavor_text_2(char *sig_flavor_text[65]);

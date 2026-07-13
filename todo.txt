@@ -10,10 +10,6 @@ the libft as intended.
 
 --------------------------------------------------------------------------------
 
-Consider doing the TODOs that are scattered over the codebase.
-
---------------------------------------------------------------------------------
-
 TOKEN TAGS
 
 - Add token tags. You'd be able to remove the parentheses hack.
@@ -71,6 +67,35 @@ SIGNALS
 
 - Consider handling all signals in the shell itself (external commands are 
 already handled).
+
+- Here is a TODO note that used to be in src/signal/flavor_text.c 
+(`get_sig_flavor_text()`):
+
+```
+- From signum 19 to 22, it's a background job:
+	Signal 19: `[1]+  Stopped                 ./test 19`
+	Signal 20: `[1]+  Stopped                 ./test 20`
+	Signal 21: `[1]+  Stopped                 ./test 21`
+	Signal 22: `[1]+  Stopped                 ./test 22`
+```
+
+--------------------------------------------------------------------------------
+
+SUBPROCESSES
+
+- Here is a TODO note that used to be in src/executor/subprocess.c 
+(`run_cmd()`):
+
+```
+If you do `handle_default_background_color(1)`, there's a flash of the default 
+color before becoming purple again. But if you don't, then even bash will keep 
+the purple instead of resetting.
+
+The goal is simply to tell the shell what the default color is. But since the 
+entire process is overwritten, we don't have any memory. The only thing we have 
+is the environment. So, store the original background (and prompt?) colors 
+within the env.
+```
 
 --------------------------------------------------------------------------------
 
